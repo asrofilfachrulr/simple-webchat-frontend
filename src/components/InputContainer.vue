@@ -38,10 +38,13 @@ export default {
   methods: {
     ...mapMutations({sendMessage: "chats/pushMessage"}),
     sendMessageHandler() {
-      this.sendMessage({
+      const newMsg = {
         name: this.name,
         content: this.content
-      })
+      }
+      this.sendMessage(newMsg)
+      
+      this.$socket.send(JSON.stringify(newMsg))
 
       this.name = ""
       this.content = ""
