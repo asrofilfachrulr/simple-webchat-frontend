@@ -8,6 +8,7 @@
         placeholder="Name"
       />
       <input
+        ref="messageInput"
         v-model="content"
         class="flex-grow-[6] indent-4"
         type="text"
@@ -38,22 +39,31 @@ export default {
   methods: {
     ...mapMutations({sendMessage: "chats/pushMessage"}),
     sendMessageHandler() {
+      if(this.isEmptyOrWhiteSpaces(this.content)) return
       const newMsg = {
         name: this.name,
         content: this.content
       }
-      this.sendMessage(newMsg)
       
       this.$socket.send(JSON.stringify(newMsg))
 
-      this.name = ""
       this.content = ""
+      this.$refs.messageInput.focus()
     },
     isEmptyOrWhiteSpaces(str) {
       let pattern = /^\s+$/g;
       return pattern.test(str) || str == '';
     },
   },
+  mounted(){
+    this.$socket.onmessage = (event) => {
+      const incomingMessage = JSON.parse(event.data)
+
+      console.log(incomingMessage)
+
+      this.sendMessage(incomingMessage)
+    }
+  }
 };
 </script>
 
