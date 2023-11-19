@@ -1,19 +1,6 @@
 const state = {
   /* eslint-disable */
-  messages: [
-    {
-      name: "thomasdarmawan",
-      content: "halo guys",
-    },
-    {
-      name: "sabrina",
-      content: "selamat siang",
-    },
-    {
-      name: "Rivaldo",
-      content: "Mari berusaha menjadi yang terbaik",
-    },
-  ] // => [{name: 'John Doe', message: 'Your Mom'}]
+  messages: [] // => [{name: 'John Doe', message: 'Your Mom'}]
 }
 
 const actions = {
